@@ -211,12 +211,12 @@ export const FAQS = [
   {
     question: 'How does Payment on Delivery (POD) work?',
     answer:
-      'It is 100% zero risk for you. You do NOT pay a single kobo upfront online. When the dispatch courier arrives at your doorstep or office, inspect the sneakers, and only pay after you have fully confirmed via the payment link sent to you by your personalized logistics supervisor.',
+      'It is 100% zero risk for you. You do NOT pay a single kobo upfront online. When the dispatch courier arrives at your doorstep or office, inspect the sneakers, and only pay after you have fully confirmed, via the secured payment link sent to you by your personal logistics supervisor.',
   },
   {
     question: 'How long does nationwide delivery take?',
     answer:
-      'Lagos orders are delivered within 48 hours (often before 36 hours if ordered before 12 PM). Other major cities (Port Harcourt, Ibadan, Benin, Enugu, etc.) would arrive in 3 to 5 working days. Rural locations take 5 to 7 business days. Express delivery is only available in Lagos and can be facilited within 24 hours per request.',
+      'Lagos orders are delivered within 24 hours (often before 6 hours if ordered before 12 PM). Other major cities (Port Harcourt, Ibadan, Benin, Enugu, etc.) would arrive in 3 to 5 working days. Rural locations take 5 to 7 business days.',
   },
   {
     question: 'Are these sneakers authentic?',

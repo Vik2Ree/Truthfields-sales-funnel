@@ -33,7 +33,7 @@ export const HowPaymentOnDeliveryWorks: React.FC<{ onOrderClick: () => void }> =
       icon: Banknote,
       brief: 'Secure Payment, Zero Scam',
       description:
-        'Once 100% confirmed, pay through the paystack secured link sent by your logistics supervisor.',
+        'Once you have confirmed your order, then you pay through the secured link sent by your logistics supervisor.',
     },
   ];
 

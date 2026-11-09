@@ -54,8 +54,9 @@ export const CheckoutAdidas: React.FC<CheckoutAdidasProps> = ({
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
 
   // Form State
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [fullName, setFullName] = useState('');
+  const firstName = fullName.trim().split(' ')[0] || '';
+  const lastName = fullName.trim().split(' ').slice(1).join(' ') || '';
   const [phone, setPhone] = useState('');
   const [hasSeparateWhatsapp, setHasSeparateWhatsapp] = useState(false);
   const [whatsapp, setWhatsapp] = useState('');
@@ -70,8 +71,6 @@ export const CheckoutAdidas: React.FC<CheckoutAdidasProps> = ({
   const [pair2Size, setPair2Size] = useState<number>(selectedSize);
   const [pair3Colorway, setPair3Colorway] = useState<Colorway>(() => COLORWAYS[2] || COLORWAYS[0]);
   const [pair3Size, setPair3Size] = useState<number>(selectedSize);
-
-  const fullName = `${firstName} ${lastName}`.trim();
 
   // Shipping & Payment Options
   const deliveryMethod = 'standard_free' as const;
@@ -96,8 +95,9 @@ export const CheckoutAdidas: React.FC<CheckoutAdidasProps> = ({
   // Validation for Step 2 (Delivery Address)
   const validateStep2 = () => {
     const newErrors: { [key: string]: string } = {};
-    if (!firstName.trim()) newErrors.firstName = 'Please enter your first name';
-    if (!lastName.trim()) newErrors.lastName = 'Please enter your last name';
+    if (!fullName.trim() || fullName.trim().length < 2) {
+      newErrors.fullName = 'Please enter your full name (First and Last Name)';
+    }
 
     const pVal = validateNigerianPhone(phone, 'Dispatch phone number');
     if (!pVal.isValid) {
@@ -937,53 +937,28 @@ export const CheckoutAdidas: React.FC<CheckoutAdidasProps> = ({
 
               {currentStep === 2 ? (
                 <div className="space-y-4">
-                  {/* First Name & Last Name */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#141414] mb-1">
-                        First Name <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="e.g. Babatunde"
-                        value={firstName}
-                        onChange={(e) => {
-                          setFirstName(e.target.value);
-                          if (errors.firstName) setErrors({ ...errors, firstName: '' });
-                        }}
-                        className={`w-full px-3.5 py-3 text-sm bg-[#FAF9F5] border rounded-none focus:outline-none focus:border-black transition-colors ${
-                          errors.firstName ? 'border-red-500' : 'border-[#D9D3C5]'
-                        }`}
-                      />
-                      {errors.firstName && (
-                        <p className="text-xs text-red-500 mt-1 flex items-center gap-1">
-                          <AlertCircle className="w-3.5 h-3.5" /> {errors.firstName}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-[#141414] mb-1">
-                        Last Name <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="e.g. Adeleke"
-                        value={lastName}
-                        onChange={(e) => {
-                          setLastName(e.target.value);
-                          if (errors.lastName) setErrors({ ...errors, lastName: '' });
-                        }}
-                        className={`w-full px-3.5 py-3 text-sm bg-[#FAF9F5] border rounded-none focus:outline-none focus:border-black transition-colors ${
-                          errors.lastName ? 'border-red-500' : 'border-[#D9D3C5]'
-                        }`}
-                      />
-                      {errors.lastName && (
-                        <p className="text-xs text-red-500 mt-1 flex items-center gap-1">
-                          <AlertCircle className="w-3.5 h-3.5" /> {errors.lastName}
-                        </p>
-                      )}
-                    </div>
+                  {/* Full Name */}
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#141414] mb-1">
+                      Full Name (First and Last Name) <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Babatunde Adeleke"
+                      value={fullName}
+                      onChange={(e) => {
+                        setFullName(e.target.value);
+                        if (errors.fullName) setErrors({ ...errors, fullName: '' });
+                      }}
+                      className={`w-full px-3.5 py-3 text-sm bg-[#FAF9F5] border rounded-none focus:outline-none focus:border-black transition-colors ${
+                        errors.fullName ? 'border-red-500 bg-red-50/20' : 'border-[#D9D3C5]'
+                      }`}
+                    />
+                    {errors.fullName && (
+                      <p className="text-xs text-red-500 mt-1 flex items-center gap-1">
+                        <AlertCircle className="w-3.5 h-3.5" /> {errors.fullName}
+                      </p>
+                    )}
                   </div>
 
                   {/* Phone Number (Nigerian Dispatch Call Verification) */}
